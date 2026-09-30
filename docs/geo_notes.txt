@@ -1,0 +1,1382 @@
+.venv) PS D:\Piyush Work\GeoEarthFM> python train_landcover.py
+Device: cuda
+Epoch 1/5 train: 100%|█████████████████████████████████████████████████████████████| 718/718 [13:05<00:00,  1.09s/it]
+loss=1.7923 train_acc=0.6200 val_acc=0.7047
+Epoch 2/5 train: 100%|█████████████████████████████████████████████████████████████| 718/718 [09:04<00:00,  1.32it/s]
+loss=1.3485 train_acc=0.7007 val_acc=0.7607
+Epoch 3/5 train: 100%|█████████████████████████████████████████████████████████████| 718/718 [06:03<00:00,  1.97it/s]
+loss=1.0522 train_acc=0.7448 val_acc=0.7884
+Epoch 4/5 train: 100%|█████████████████████████████████████████████████████████████| 718/718 [05:41<00:00,  2.10it/s]
+loss=0.8400 train_acc=0.7863 val_acc=0.8311
+Epoch 5/5 train: 100%|█████████████████████████████████████████████████████████████| 718/718 [05:41<00:00,  2.10it/s]
+loss=0.6889 train_acc=0.8241 val_acc=0.8200
+Best validation accuracy: 0.8311111111111111
+Saved: D:\Piyush Work\GeoEarthFM\outputs\landcover
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+.venv) PS D:\Piyush Work\GeoEarthFM> python evaluate_landcover.py
+Device: cuda
+Number of classes: 10
+Classes: ['AnnualCrop', 'Forest', 'HerbaceousVegetation', 'Highway', 'Industrial', 'Pasture', 'PermanentCrop', 'Residential', 'River', 'SeaLake']
+Training samples: 22950
+Validation samples: 4050
+
+Loading checkpoint:
+D:\Piyush Work\GeoEarthFM\outputs\landcover_best.pt
+Checkpoint loaded successfully.
+Checkpoint classes: ['AnnualCrop', 'Forest', 'HerbaceousVegetation', 'Highway', 'Industrial', 'Pasture', 'PermanentCrop', 'Residential', 'River', 'SeaLake']
+Saved best validation accuracy: 83.11%
+
+Evaluating model...
+
+
+==============================================
+           LAND COVER EVALUATION
+==============================================
+
+Validation Accuracy: 0.8311
+Validation Accuracy: 83.11%
+
+
+==============================================
+           CLASSIFICATION REPORT
+==============================================
+                      precision    recall  f1-score   support
+
+          AnnualCrop     0.7859    0.8708    0.8261       472
+              Forest     0.9244    0.9683    0.9459       442
+HerbaceousVegetation     0.7056    0.8581    0.7744       458
+             Highway     0.7366    0.4578    0.5647       391
+          Industrial     0.9100    0.9365    0.9231       378
+             Pasture     0.8239    0.8294    0.8267       299
+       PermanentCrop     0.8362    0.6464    0.7292       379
+         Residential     0.9326    0.9533    0.9429       450
+               River     0.7340    0.7653    0.7493       375
+             SeaLake     0.9116    0.9655    0.9378       406
+
+            accuracy                         0.8311      4050
+           macro avg     0.8301    0.8252    0.8220      4050
+        weighted avg     0.8304    0.8311    0.8252      4050
+
+
+
+==============================================
+              CONFUSION MATRIX
+==============================================
+[[411   5   7   6   0   9  12   0   7  15]
+ [  0 428   5   0   0   4   0   0   0   5]
+ [ 12   6 393  10   4   4   9   7   3  10]
+ [ 36   4  37 179  20  13  20   8  74   0]
+ [  2   0   4  10 354   0   0   8   0   0]
+ [  9  11  20   1   0 248   3   0   6   1]
+ [ 39   1  68  14   1   1 245   0  10   0]
+ [  0   0  15   0   5   0   0 429   1   0]
+ [ 11   6   6  23   5  18   4   8 287   7]
+ [  3   2   2   0   0   4   0   0   3 392]]
+
+
+==============================================
+         CLASS-WISE CONFUSION
+==============================================
+AnnualCrop                -> SeaLake                   (15 images)
+Forest                    -> HerbaceousVegetation      (5 images)
+HerbaceousVegetation      -> AnnualCrop                (12 images)
+Highway                   -> River                     (74 images)
+Industrial                -> Highway                   (10 images)
+Pasture                   -> HerbaceousVegetation      (20 images)
+PermanentCrop             -> HerbaceousVegetation      (68 images)
+Residential               -> HerbaceousVegetation      (15 images)
+River                     -> Highway                   (23 images)
+SeaLake                   -> Pasture                   (4 images)
+
+
+Confusion matrix saved:
+D:\Piyush Work\GeoEarthFM\outputs\confusion_matrix.npy
+
+
+==============================================
+                 SUMMARY
+==============================================
+Validation samples : 4050
+Correct predictions: 3366
+Total predictions  : 4050
+Accuracy            : 83.11%
+
+Evaluation completed successfully.
+(.venv) PS D:\Piyush Work\GeoEarthFM> 
+
+
+-----------------------------------------------------------------------------------------------------
+
+aved: D:\Piyush Work\GeoEarthFM\outputs\change_best.pt
+(.venv) PS D:\Piyush Work\GeoEarthFM> python train_change.py --epochs 10 --max-samples 3000
+============================================================
+CHANGE DETECTION TRAINING
+============================================================
+Device: cuda
+GPU: NVIDIA GeForce RTX 4050 Laptop GPU
+VRAM: 6.0 GB
+CUDA: 13.0
+Mixed Precision: Enabled
+Batch size: 4
+Workers: 2
+Maximum samples: 3000
+
+Loading STTORM dataset...
+Total samples: 3000
+Training samples: 2550
+Validation samples: 450
+Training batches: 637
+Validation batches: 113
+
+Creating model...
+Model moved to: cuda:0
+
+============================================================
+Epoch 1/10
+============================================================
+Epoch 1/10 train: 100%|█████████████████████████████| 637/637 [00:24<00:00, 26.12it/s, loss=0.1461]
+loss=0.3462 val_dice=0.7918
+Best model saved: Dice=0.7918
+GPU memory: 0.04 GB allocated / 0.24 GB reserved
+
+============================================================
+Epoch 2/10
+============================================================
+Epoch 2/10 train: 100%|█████████████████████████████| 637/637 [00:22<00:00, 28.48it/s, loss=0.2390]
+loss=0.2103 val_dice=0.7170
+GPU memory: 0.04 GB allocated / 0.24 GB reserved
+
+============================================================
+Epoch 3/10
+============================================================
+Epoch 3/10 train: 100%|█████████████████████████████| 637/637 [00:13<00:00, 48.27it/s, loss=0.1239]
+loss=0.1707 val_dice=0.7814
+GPU memory: 0.04 GB allocated / 0.24 GB reserved
+
+============================================================
+Epoch 4/10
+============================================================
+Epoch 4/10 train: 100%|█████████████████████████████| 637/637 [00:11<00:00, 55.73it/s, loss=0.0994]
+loss=0.1513 val_dice=0.8342
+Best model saved: Dice=0.8342
+GPU memory: 0.04 GB allocated / 0.24 GB reserved
+
+============================================================
+Epoch 5/10
+============================================================
+Epoch 5/10 train: 100%|█████████████████████████████| 637/637 [00:11<00:00, 56.43it/s, loss=0.1846]
+loss=0.1466 val_dice=0.8290
+GPU memory: 0.04 GB allocated / 0.24 GB reserved
+
+============================================================
+Epoch 6/10
+============================================================
+Epoch 6/10 train: 100%|█████████████████████████████| 637/637 [00:11<00:00, 55.91it/s, loss=0.0588]
+loss=0.1306 val_dice=0.8360
+Best model saved: Dice=0.8360
+GPU memory: 0.04 GB allocated / 0.24 GB reserved
+
+============================================================
+Epoch 7/10
+============================================================
+Epoch 7/10 train: 100%|█████████████████████████████| 637/637 [00:11<00:00, 56.47it/s, loss=0.1349]
+loss=0.1353 val_dice=0.8387
+Best model saved: Dice=0.8387
+GPU memory: 0.04 GB allocated / 0.24 GB reserved
+
+============================================================
+Epoch 8/10
+============================================================
+Epoch 8/10 train: 100%|█████████████████████████████| 637/637 [00:11<00:00, 57.10it/s, loss=0.0838]
+loss=0.1232 val_dice=0.7760
+GPU memory: 0.04 GB allocated / 0.24 GB reserved
+
+============================================================
+Epoch 9/10
+============================================================
+Epoch 9/10 train: 100%|█████████████████████████████| 637/637 [00:11<00:00, 57.46it/s, loss=0.0184]
+loss=0.1111 val_dice=0.8223
+GPU memory: 0.04 GB allocated / 0.24 GB reserved
+
+============================================================
+Epoch 10/10
+============================================================
+Epoch 10/10 train: 100%|████████████████████████████| 637/637 [00:11<00:00, 57.52it/s, loss=0.0819]
+loss=0.1200 val_dice=0.8198
+GPU memory: 0.04 GB allocated / 0.24 GB reserved
+
+============================================================
+TRAINING COMPLETE
+============================================================
+Best validation Dice: 0.838667198385346
+Saved: D:\Piyush Work\GeoEarthFM\outputs\change_best.pt
+(.venv) PS D:\Piyush Work\GeoEarthFM> python train_change.py --epochs 10 --max-samples 3000
+
+-----------------------------------------------------------------------------------------
+
+ 
+(.venv) PS D:\Piyush Work\GeoEarthFM> python evaluate_change.py
+=================================================================
+STTORM CHANGE DETECTION EVALUATION
+=================================================================
+
+Loading prediction:
+outputs\greece_change_probability.npy
+
+Loading ground truth:
+dataset\train\greece_thessaly\1\mask.npy
+
+Prediction shape : (1073, 1834)
+Ground truth shape: (1073, 1834)
+
+=================================================================
+CHANGE DETECTION RESULTS
+=================================================================
+
+Threshold              : 0.5
+Total pixels           : 1,967,882
+
+GROUND TRUTH
+-----------------------------------------------------------------
+Changed pixels         : 745,767
+Change area            : 37.90%
+
+MODEL PREDICTION
+-----------------------------------------------------------------
+Changed pixels         : 794,619
+Change area            : 40.38%
+
+CONFUSION MATRIX
+-----------------------------------------------------------------
+True Positive (TP)     : 721,462
+True Negative (TN)     : 1,148,958
+False Positive (FP)    : 73,157
+False Negative (FN)    : 24,305
+
+PERFORMANCE METRICS
+-----------------------------------------------------------------
+Accuracy               : 0.9505
+Precision              : 0.9079
+Recall                 : 0.9674
+Dice / F1              : 0.9367
+IoU                    : 0.8810
+
+=================================================================
+FILES SAVED
+=================================================================
+outputs\greece_change_evaluated_mask.png
+outputs\greece_change_ground_truth.png
+outputs\greece_change_comparison.png
+outputs\greece_change_error_map.png
+outputs\greece_change_metrics.txt
+
+=================================================================
+EVALUATION COMPLETE
+=================================================================
+(.venv) PS D:\Piyush Work\GeoEarthFM> 
+
+
+----------------------------------------------------------------------------------\
+
+ile "D:\Piyush Work\GeoEarthFM\evaluate_change.py", line 15
+    mask = np.load(path).astype(np.float32)
+    ^^^^
+IndentationError: expected an indented block after function definition on line 14
+(.venv) PS D:\Piyush Work\GeoEarthFM> notepad evaluate_change.py
+(.venv) PS D:\Piyush Work\GeoEarthFM> python -m py_compile evaluate_change.py
+(.venv) PS D:\Piyush Work\GeoEarthFM> python evaluate_change.py `
+>>   --prediction "outputs\italia_change_probability.npy" `
+>>   --ground-truth "dataset\train\italia_emilia_romagna\1\mask.npy" `
+>>   --out "outputs\italia_evaluation"
+=================================================================
+STTORM CHANGE DETECTION EVALUATION
+=================================================================
+
+Loading prediction:
+outputs\italia_change_probability.npy
+
+Loading ground truth:
+dataset\train\italia_emilia_romagna\1\mask.npy
+
+Prediction shape : (933, 1768)
+Ground truth shape: (933, 1768)
+
+=================================================================
+CHANGE DETECTION RESULTS
+=================================================================
+
+Threshold              : 0.5
+Total pixels           : 1,649,544
+
+GROUND TRUTH
+-----------------------------------------------------------------
+Changed pixels         : 446,877
+Change area            : 27.09%
+
+MODEL PREDICTION
+-----------------------------------------------------------------
+Changed pixels         : 411,250
+Change area            : 24.93%
+
+CONFUSION MATRIX
+-----------------------------------------------------------------
+True Positive (TP)     : 381,433
+True Negative (TN)     : 1,172,850
+False Positive (FP)    : 29,817
+False Negative (FN)    : 65,444
+
+PERFORMANCE METRICS
+-----------------------------------------------------------------
+Accuracy               : 0.9423
+Precision              : 0.9275
+Recall                 : 0.8536
+Dice / F1              : 0.8890
+IoU                    : 0.8002
+
+=================================================================
+FILES SAVED
+=================================================================
+outputs\italia_evaluation_prediction.png
+outputs\italia_evaluation_ground_truth.png
+outputs\italia_evaluation_comparison.png
+outputs\italia_evaluation_error_map.png
+outputs\italia_evaluation_metrics.txt
+
+=================================================================
+EVALUATION COMPLETE
+=================================================================
+(.venv) PS D:\Piyush Work\GeoEarthFM> 
+
+
+-----------------------------------------------------------------------
+
+
+>>   --prediction "outputs\italia_change_probability.npy" `
+>>   --ground-truth "dataset\train\italia_emilia_romagna\1\mask.npy" `
+>>   --out "outputs\italia_evaluation"
+=================================================================
+STTORM CHANGE DETECTION EVALUATION
+=================================================================
+
+Loading prediction:
+outputs\italia_change_probability.npy
+
+Loading ground truth:
+dataset\train\italia_emilia_romagna\1\mask.npy
+
+Prediction shape : (933, 1768)
+Ground truth shape: (933, 1768)
+
+=================================================================
+CHANGE DETECTION RESULTS
+=================================================================
+
+Threshold              : 0.5
+Total pixels           : 1,649,544
+
+GROUND TRUTH
+-----------------------------------------------------------------
+Changed pixels         : 446,877
+Change area            : 27.09%
+
+MODEL PREDICTION
+-----------------------------------------------------------------
+Changed pixels         : 411,250
+Change area            : 24.93%
+
+CONFUSION MATRIX
+-----------------------------------------------------------------
+True Positive (TP)     : 381,433
+True Negative (TN)     : 1,172,850
+False Positive (FP)    : 29,817
+False Negative (FN)    : 65,444
+
+PERFORMANCE METRICS
+-----------------------------------------------------------------
+Accuracy               : 0.9423
+Precision              : 0.9275
+Recall                 : 0.8536
+Dice / F1              : 0.8890
+IoU                    : 0.8002
+
+=================================================================
+FILES SAVED
+=================================================================
+outputs\italia_evaluation_prediction.png
+outputs\italia_evaluation_ground_truth.png
+outputs\italia_evaluation_comparison.png
+outputs\italia_evaluation_error_map.png
+outputs\italia_evaluation_metrics.txt
+
+=================================================================
+EVALUATION COMPLETE
+=================================================================
+(.venv) PS D:\Piyush Work\GeoEarthFM> Get-ChildItem .\dataset\ -Directory
+
+
+    Directory: D:\Piyush Work\GeoEarthFM\dataset
+
+
+Mode                 LastWriteTime         Length Name                                             
+----                 -------------         ------ ----                                             
+d-----        30-09-2026     16:36                test                                             
+d-----        30-09-2026     16:36                train                                            
+
+
+(.venv) PS D:\Piyush Work\GeoEarthFM> Get-ChildItem .\dataset\test -Recurse -Filter mask.npy | Select-Object -First 20 FullName
+
+FullName                                               
+--------                                               
+D:\Piyush Work\GeoEarthFM\dataset\test\brazil\mask.npy 
+D:\Piyush Work\GeoEarthFM\dataset\test\germany\mask.npy
+D:\Piyush Work\GeoEarthFM\dataset\test\laos\mask.npy   
+D:\Piyush Work\GeoEarthFM\dataset\test\niger\mask.npy  
+
+
+(.venv) PS D:\Piyush Work\GeoEarthFM> Get-ChildItem .\dataset\test -Recurse -Filter *.npy | Where-Object { $_.Name -ne "mask.npy" } | Select-Object -First 30 FullName
+
+FullName                                                               
+--------                                                               
+D:\Piyush Work\GeoEarthFM\dataset\test\brazil\all_bands\2023-05-09.npy 
+D:\Piyush Work\GeoEarthFM\dataset\test\brazil\all_bands\2023-06-18.npy 
+D:\Piyush Work\GeoEarthFM\dataset\test\brazil\all_bands\2023-09-01.npy 
+D:\Piyush Work\GeoEarthFM\dataset\test\brazil\all_bands\2023-09-21.npy 
+D:\Piyush Work\GeoEarthFM\dataset\test\brazil\all_bands\2023-11-05.npy 
+D:\Piyush Work\GeoEarthFM\dataset\test\germany\all_bands\2021-06-16.npy
+D:\Piyush Work\GeoEarthFM\dataset\test\germany\all_bands\2021-06-26.npy
+D:\Piyush Work\GeoEarthFM\dataset\test\germany\all_bands\2021-07-03.npy
+D:\Piyush Work\GeoEarthFM\dataset\test\germany\all_bands\2021-07-06.npy
+D:\Piyush Work\GeoEarthFM\dataset\test\germany\all_bands\2021-07-18.npy
+D:\Piyush Work\GeoEarthFM\dataset\test\laos\all_bands\2020-08-08.npy   
+D:\Piyush Work\GeoEarthFM\dataset\test\laos\all_bands\2020-09-02.npy   
+D:\Piyush Work\GeoEarthFM\dataset\test\laos\all_bands\2020-09-12.npy   
+D:\Piyush Work\GeoEarthFM\dataset\test\laos\all_bands\2020-09-27.npy   
+D:\Piyush Work\GeoEarthFM\dataset\test\laos\all_bands\2020-10-22.npy   
+D:\Piyush Work\GeoEarthFM\dataset\test\niger\all_bands\2021-07-02.npy  
+D:\Piyush Work\GeoEarthFM\dataset\test\niger\all_bands\2021-07-07.npy  
+D:\Piyush Work\GeoEarthFM\dataset\test\niger\all_bands\2021-07-12.npy  
+D:\Piyush Work\GeoEarthFM\dataset\test\niger\all_bands\2021-07-17.npy  
+D:\Piyush Work\GeoEarthFM\dataset\test\niger\all_bands\2021-08-01.npy  
+
+
+(.venv) PS D:\Piyush Work\GeoEarthFM> python predict_change.py `
+>>   --before "dataset\test\brazil\all_bands\2023-05-09.npy" `
+>>   --after "dataset\test\brazil\all_bands\2023-11-05.npy" `
+>>   --out "outputs\brazil_change"
+============================================================
+STTORM CHANGE DETECTION
+============================================================
+Device: cuda
+GPU: NVIDIA GeForce RTX 4050 Laptop GPU
+VRAM: 6.0 GB
+
+Before: dataset\test\brazil\all_bands\2023-05-09.npy
+After : dataset\test\brazil\all_bands\2023-11-05.npy
+
+Loading trained model...
+Model loaded successfully.
+Checkpoint: D:\Piyush Work\GeoEarthFM\outputs\change_best.pt
+
+Running change detection...
+
+============================================================
+CHANGE DETECTION RESULTS
+============================================================
+Changed pixels : 196,124
+Total pixels   : 1,835,184
+Change area    : 10.69%
+Minimum prob.  : 0.0002
+Maximum prob.  : 0.9994
+Mean prob.     : 0.1206
+
+Saved:
+outputs\brazil_change_mask.png
+outputs\brazil_change_probability.png
+outputs\brazil_change_probability.npy
+
+GPU memory allocated: 0.01 GB
+
+============================================================
+PREDICTION COMPLETE
+============================================================
+(.venv) PS D:\Piyush Work\GeoEarthFM> python evaluate_change.py `
+>>   --prediction "outputs\brazil_change_probability.npy" `
+>>   --ground-truth "dataset\test\brazil\mask.npy" `
+>>   --out "outputs\brazil_evaluation"
+=================================================================
+STTORM CHANGE DETECTION EVALUATION
+=================================================================
+
+Loading prediction:
+outputs\brazil_change_probability.npy
+
+Loading ground truth:
+dataset\test\brazil\mask.npy
+
+Prediction shape : (1038, 1768)
+Ground truth shape: (1038, 1768)
+
+=================================================================
+CHANGE DETECTION RESULTS
+=================================================================
+
+Threshold              : 0.5
+Total pixels           : 1,835,184
+
+GROUND TRUTH
+-----------------------------------------------------------------
+Changed pixels         : 180,928
+Change area            : 9.86%
+
+MODEL PREDICTION
+-----------------------------------------------------------------
+Changed pixels         : 196,124
+Change area            : 10.69%
+
+CONFUSION MATRIX
+-----------------------------------------------------------------
+True Positive (TP)     : 158,488
+True Negative (TN)     : 1,616,620
+False Positive (FP)    : 37,636
+False Negative (FN)    : 22,440
+
+PERFORMANCE METRICS
+-----------------------------------------------------------------
+Accuracy               : 0.9673
+Precision              : 0.8081
+Recall                 : 0.8760
+Dice / F1              : 0.8407
+IoU                    : 0.7251
+
+=================================================================
+FILES SAVED
+=================================================================
+outputs\brazil_evaluation_prediction.png
+outputs\brazil_evaluation_ground_truth.png
+outputs\brazil_evaluation_comparison.png
+outputs\brazil_evaluation_error_map.png
+outputs\brazil_evaluation_metrics.txt
+
+=================================================================
+EVALUATION COMPLETE
+=================================================================
+(.venv) PS D:\Piyush Work\GeoEarthFM> python predict_change.py `
+>>   --before "dataset\test\germany\all_bands\2021-06-16.npy" `
+>>   --after "dataset\test\germany\all_bands\2021-07-18.npy" `
+>>   --out "outputs\germany_change"
+============================================================
+STTORM CHANGE DETECTION
+============================================================
+Device: cuda
+GPU: NVIDIA GeForce RTX 4050 Laptop GPU
+VRAM: 6.0 GB
+
+Before: dataset\test\germany\all_bands\2021-06-16.npy
+After : dataset\test\germany\all_bands\2021-07-18.npy
+
+Loading trained model...
+Model loaded successfully.
+Checkpoint: D:\Piyush Work\GeoEarthFM\outputs\change_best.pt
+
+Running change detection...
+
+============================================================
+CHANGE DETECTION RESULTS
+============================================================
+Changed pixels : 15,634
+Total pixels   : 1,756,972
+Change area    : 0.89%
+Minimum prob.  : 0.0004
+Maximum prob.  : 0.9979
+Mean prob.     : 0.0187
+
+Saved:
+outputs\germany_change_mask.png
+outputs\germany_change_probability.png
+outputs\germany_change_probability.npy
+
+GPU memory allocated: 0.01 GB
+
+============================================================
+PREDICTION COMPLETE
+============================================================
+(.venv) PS D:\Piyush Work\GeoEarthFM> python evaluate_change.py `
+>>   --prediction "outputs\germany_change_probability.npy" `
+>>   --ground-truth "dataset\test\germany\mask.npy" `
+>>   --out "outputs\germany_evaluation"
+=================================================================
+STTORM CHANGE DETECTION EVALUATION
+=================================================================
+
+Loading prediction:
+outputs\germany_change_probability.npy
+
+Loading ground truth:
+dataset\test\germany\mask.npy
+
+Prediction shape : (958, 1834)
+Ground truth shape: (958, 1834)
+
+=================================================================
+CHANGE DETECTION RESULTS
+=================================================================
+
+Threshold              : 0.5
+Total pixels           : 1,756,972
+
+GROUND TRUTH
+-----------------------------------------------------------------
+Changed pixels         : 12,321
+Change area            : 0.70%
+
+MODEL PREDICTION
+-----------------------------------------------------------------
+Changed pixels         : 15,634
+Change area            : 0.89%
+
+CONFUSION MATRIX
+-----------------------------------------------------------------
+True Positive (TP)     : 9,589
+True Negative (TN)     : 1,738,606
+False Positive (FP)    : 6,045
+False Negative (FN)    : 2,732
+
+PERFORMANCE METRICS
+-----------------------------------------------------------------
+Accuracy               : 0.9950
+Precision              : 0.6133
+Recall                 : 0.7783
+Dice / F1              : 0.6860
+IoU                    : 0.5221
+
+=================================================================
+FILES SAVED
+=================================================================
+outputs\germany_evaluation_prediction.png
+outputs\germany_evaluation_ground_truth.png
+outputs\germany_evaluation_comparison.png
+outputs\germany_evaluation_error_map.png
+outputs\germany_evaluation_metrics.txt
+
+=================================================================
+EVALUATION COMPLETE
+=================================================================
+(.venv) PS D:\Piyush Work\GeoEarthFM> python predict_change.py `
+>>   --before "dataset\test\laos\all_bands\2020-08-08.npy" `
+>>   --after "dataset\test\laos\all_bands\2020-10-22.npy" `
+>>   --out "outputs\laos_change"
+============================================================
+STTORM CHANGE DETECTION
+============================================================
+Device: cuda
+GPU: NVIDIA GeForce RTX 4050 Laptop GPU
+VRAM: 6.0 GB
+
+Before: dataset\test\laos\all_bands\2020-08-08.npy
+After : dataset\test\laos\all_bands\2020-10-22.npy
+
+Loading trained model...
+Model loaded successfully.
+Checkpoint: D:\Piyush Work\GeoEarthFM\outputs\change_best.pt
+
+Running change detection...
+
+============================================================
+CHANGE DETECTION RESULTS
+============================================================
+Changed pixels : 160,589
+Total pixels   : 1,740,466
+Change area    : 9.23%
+Minimum prob.  : 0.0002
+Maximum prob.  : 0.9995
+Mean prob.     : 0.1050
+
+Saved:
+outputs\laos_change_mask.png
+outputs\laos_change_probability.png
+outputs\laos_change_probability.npy
+
+GPU memory allocated: 0.01 GB
+
+============================================================
+PREDICTION COMPLETE
+============================================================
+(.venv) PS D:\Piyush Work\GeoEarthFM> python evaluate_change.py `
+>>   --prediction "outputs\laos_change_probability.npy" `
+>>   --ground-truth "dataset\test\laos\mask.npy" `
+>>   --out "outputs\laos_evaluation"
+=================================================================
+STTORM CHANGE DETECTION EVALUATION
+=================================================================
+
+Loading prediction:
+outputs\laos_change_probability.npy
+
+Loading ground truth:
+dataset\test\laos\mask.npy
+
+Prediction shape : (949, 1834)
+Ground truth shape: (949, 1834)
+
+=================================================================
+CHANGE DETECTION RESULTS
+=================================================================
+
+Threshold              : 0.5
+Total pixels           : 1,740,466
+
+GROUND TRUTH
+-----------------------------------------------------------------
+Changed pixels         : 205,848
+Change area            : 11.83%
+
+MODEL PREDICTION
+-----------------------------------------------------------------
+Changed pixels         : 160,589
+Change area            : 9.23%
+
+CONFUSION MATRIX
+-----------------------------------------------------------------
+True Positive (TP)     : 140,727
+True Negative (TN)     : 1,514,756
+False Positive (FP)    : 19,862
+False Negative (FN)    : 65,121
+
+PERFORMANCE METRICS
+-----------------------------------------------------------------
+Accuracy               : 0.9512
+Precision              : 0.8763
+Recall                 : 0.6836
+Dice / F1              : 0.7681
+IoU                    : 0.6235
+
+=================================================================
+FILES SAVED
+=================================================================
+outputs\laos_evaluation_prediction.png
+outputs\laos_evaluation_ground_truth.png
+outputs\laos_evaluation_comparison.png
+outputs\laos_evaluation_error_map.png
+outputs\laos_evaluation_metrics.txt
+
+=================================================================
+EVALUATION COMPLETE
+=================================================================
+(.venv) PS D:\Piyush Work\GeoEarthFM> python predict_change.py `
+>>   --before "dataset\test\niger\all_bands\2021-07-02.npy" `
+>>   --after "dataset\test\niger\all_bands\2021-08-01.npy" `
+>>   --out "outputs\niger_change"
+============================================================
+STTORM CHANGE DETECTION
+============================================================
+Device: cuda
+GPU: NVIDIA GeForce RTX 4050 Laptop GPU
+VRAM: 6.0 GB
+
+Before: dataset\test\niger\all_bands\2021-07-02.npy
+After : dataset\test\niger\all_bands\2021-08-01.npy
+
+Loading trained model...
+Model loaded successfully.
+Checkpoint: D:\Piyush Work\GeoEarthFM\outputs\change_best.pt
+
+Running change detection...
+
+============================================================
+CHANGE DETECTION RESULTS
+============================================================
+Changed pixels : 70,635
+Total pixels   : 1,835,184
+Change area    : 3.85%
+Minimum prob.  : 0.0016
+Maximum prob.  : 0.9697
+Mean prob.     : 0.0647
+
+Saved:
+outputs\niger_change_mask.png
+outputs\niger_change_probability.png
+outputs\niger_change_probability.npy
+
+GPU memory allocated: 0.01 GB
+
+============================================================
+PREDICTION COMPLETE
+============================================================
+(.venv) PS D:\Piyush Work\GeoEarthFM> python evaluate_change.py `
+>>   --prediction "outputs\niger_change_probability.npy" `
+>>   --ground-truth "dataset\test\niger\mask.npy" `
+>>   --out "outputs\niger_evaluation"
+=================================================================
+STTORM CHANGE DETECTION EVALUATION
+=================================================================
+
+Loading prediction:
+outputs\niger_change_probability.npy
+
+Loading ground truth:
+dataset\test\niger\mask.npy
+
+Prediction shape : (1038, 1768)
+Ground truth shape: (1038, 1768)
+
+=================================================================
+CHANGE DETECTION RESULTS
+=================================================================
+
+Threshold              : 0.5
+Total pixels           : 1,835,184
+
+GROUND TRUTH
+-----------------------------------------------------------------
+Changed pixels         : 46,034
+Change area            : 2.51%
+
+MODEL PREDICTION
+-----------------------------------------------------------------
+Changed pixels         : 70,635
+Change area            : 3.85%
+
+CONFUSION MATRIX
+-----------------------------------------------------------------
+True Positive (TP)     : 30,522
+True Negative (TN)     : 1,749,037
+False Positive (FP)    : 40,113
+False Negative (FN)    : 15,512
+
+PERFORMANCE METRICS
+-----------------------------------------------------------------
+Accuracy               : 0.9697
+Precision              : 0.4321
+Recall                 : 0.6630
+Dice / F1              : 0.5232
+IoU                    : 0.3543
+
+=================================================================
+FILES SAVED
+=================================================================
+outputs\niger_evaluation_prediction.png
+outputs\niger_evaluation_ground_truth.png
+outputs\niger_evaluation_comparison.png
+outputs\niger_evaluation_error_map.png
+outputs\niger_evaluation_metrics.txt
+
+=================================================================
+EVALUATION COMPLETE
+=================================================================
+(.venv) PS D:\Piyush Work\GeoEarthFM> 
+
+
+
+---------------------------------------------------------------------
+
+(.venv) PS D:\Piyush Work\GeoEarthFM> python evaluate_all_test_pairs.py
+======================================================================
+STTORM FULL TEST-SET TEMPORAL EVALUATION
+======================================================================
+
+======================================================================
+REGION: BRAZIL
+======================================================================
+Dates found:
+  2023-05-09.npy
+  2023-06-18.npy
+  2023-09-01.npy
+  2023-09-21.npy
+  2023-11-05.npy
+
+Temporal pairs: 10
+
+----------------------------------------------------------------------
+[1/10] brazil: 2023-05-09 -> 2023-06-18
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[2/10] brazil: 2023-05-09 -> 2023-09-01
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[3/10] brazil: 2023-05-09 -> 2023-09-21
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[4/10] brazil: 2023-05-09 -> 2023-11-05
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[5/10] brazil: 2023-06-18 -> 2023-09-01
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[6/10] brazil: 2023-06-18 -> 2023-09-21
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[7/10] brazil: 2023-06-18 -> 2023-11-05
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[8/10] brazil: 2023-09-01 -> 2023-09-21
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[9/10] brazil: 2023-09-01 -> 2023-11-05
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[10/10] brazil: 2023-09-21 -> 2023-11-05
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+======================================================================
+REGION: GERMANY
+======================================================================
+Dates found:
+  2021-06-16.npy
+  2021-06-26.npy
+  2021-07-03.npy
+  2021-07-06.npy
+  2021-07-18.npy
+
+Temporal pairs: 10
+
+----------------------------------------------------------------------
+[1/10] germany: 2021-06-16 -> 2021-06-26
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[2/10] germany: 2021-06-16 -> 2021-07-03
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[3/10] germany: 2021-06-16 -> 2021-07-06
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[4/10] germany: 2021-06-16 -> 2021-07-18
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[5/10] germany: 2021-06-26 -> 2021-07-03
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[6/10] germany: 2021-06-26 -> 2021-07-06
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[7/10] germany: 2021-06-26 -> 2021-07-18
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[8/10] germany: 2021-07-03 -> 2021-07-06
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[9/10] germany: 2021-07-03 -> 2021-07-18
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[10/10] germany: 2021-07-06 -> 2021-07-18
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+======================================================================
+REGION: LAOS
+======================================================================
+Dates found:
+  2020-08-08.npy
+  2020-09-02.npy
+  2020-09-12.npy
+  2020-09-27.npy
+  2020-10-22.npy
+
+Temporal pairs: 10
+
+----------------------------------------------------------------------
+[1/10] laos: 2020-08-08 -> 2020-09-02
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[2/10] laos: 2020-08-08 -> 2020-09-12
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[3/10] laos: 2020-08-08 -> 2020-09-27
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[4/10] laos: 2020-08-08 -> 2020-10-22
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[5/10] laos: 2020-09-02 -> 2020-09-12
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[6/10] laos: 2020-09-02 -> 2020-09-27
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[7/10] laos: 2020-09-02 -> 2020-10-22
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[8/10] laos: 2020-09-12 -> 2020-09-27
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[9/10] laos: 2020-09-12 -> 2020-10-22
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[10/10] laos: 2020-09-27 -> 2020-10-22
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+======================================================================
+REGION: NIGER
+======================================================================
+Dates found:
+  2021-07-02.npy
+  2021-07-07.npy
+  2021-07-12.npy
+  2021-07-17.npy
+  2021-08-01.npy
+
+Temporal pairs: 10
+
+----------------------------------------------------------------------
+[1/10] niger: 2021-07-02 -> 2021-07-07
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[2/10] niger: 2021-07-02 -> 2021-07-12
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[3/10] niger: 2021-07-02 -> 2021-07-17
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[4/10] niger: 2021-07-02 -> 2021-08-01
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[5/10] niger: 2021-07-07 -> 2021-07-12
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[6/10] niger: 2021-07-07 -> 2021-07-17
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[7/10] niger: 2021-07-07 -> 2021-08-01
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[8/10] niger: 2021-07-12 -> 2021-07-17
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[9/10] niger: 2021-07-12 -> 2021-08-01
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+----------------------------------------------------------------------
+[10/10] niger: 2021-07-17 -> 2021-08-01
+----------------------------------------------------------------------
+
+PREDICTION FAILED
+Traceback (most recent call last):
+  File "D:\Piyush Work\GeoEarthFM\predict_change.py", line 5, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+
+======================================================================
+FULL TEST EVALUATION COMPLETE
+======================================================================
+Total temporal pairs attempted : 40
+Successful evaluations         : 0
+
+Results saved:
+outputs\all_test_pairs\all_test_pair_results.csv
+(.venv) PS D:\Piyush Work\GeoEarthFM> 
