@@ -24,7 +24,10 @@ from geoearthfm.config import *  # noqa: F401,F403
 from geoearthfm.models import LandCoverModel, ChangeDetector
 from geoearthfm.utils import load_checkpoint, device, normalize_spectral, to_chw
 
-OUT = Path(globals().get("OUTPUT_DIR", PROJECT_ROOT / "outputs"))
+# Always resolve outputs relative to the project root so the app also works when deployed
+# (an absolute Windows path in config.py would not exist on Streamlit Community Cloud).
+OUT = PROJECT_ROOT / "outputs"
+MAX_PIXELS_WARN = 1_500_000  # large uploads can exhaust the ~1 GB memory of free cloud hosting
 TEST_DIR = OUT / "all_test_pairs"
 TILE = int(globals().get("IMAGE_SIZE", 64))
 BAND_IDX = list(globals().get("STTORM_BAND_INDICES", []))
@@ -419,7 +422,8 @@ def page_overview():
         with col:
             render_metric_card(label, pct(m[n]))
     if m["Accuracy"] is not None and m["Dice"] is not None:
-        st.caption("Accuracy is high because unchanged pixels dominate; Dice, IoU, Precision and Recall "
+        st.caption("Means over all evaluated test date pairs (each region is scored against one reference mask). "
+                   "Accuracy is high because unchanged pixels dominate; Dice, IoU, Precision and Recall "
                    "better reflect change-detection quality.")
     pairs = safe_read_csv(TEST_DIR / "all_test_pair_results.csv")
     rc = next((c for c in pairs.columns if "region" in str(c).lower()), None)
@@ -459,6 +463,9 @@ def page_change(models):
     else:
         try:
             before, after = validate_pair(np.load(io.BytesIO(bf.getvalue())), np.load(io.BytesIO(af.getvalue())))
+            if before.shape[0] * before.shape[1] > MAX_PIXELS_WARN and str(DEV) == "cpu":
+                st.warning("These images are large and this app is running on CPU. Analysis may be slow "
+                           "or run out of memory on small servers; try a smaller crop of the area.")
             st.markdown("### Step 3: Preview")
             p1, p2 = st.columns(2)
             p1.image(make_rgb_preview(before), caption=f"BEFORE {before.shape}", use_container_width=True)
