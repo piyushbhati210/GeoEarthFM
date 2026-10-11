@@ -55,17 +55,33 @@ def parse_metrics(text):
 # Run Python script using CURRENT VIRTUAL ENVIRONMENT
 # =========================================================
 
+
 def run_python_script(script, arguments):
+
+    import os
+
+    project_root = Path(__file__).resolve().parent.parent
 
     command = [
         sys.executable,
-        script,
+        str(project_root / script),
     ] + arguments
+
+    env = os.environ.copy()
+    existing_path = env.get("PYTHONPATH", "")
+
+    env["PYTHONPATH"] = (
+        str(project_root)
+        if not existing_path
+        else str(project_root) + os.pathsep + existing_path
+    )
 
     return subprocess.run(
         command,
         capture_output=True,
-        text=True
+        text=True,
+        cwd=str(project_root),
+        env=env
     )
 
 
@@ -74,6 +90,7 @@ def run_python_script(script, arguments):
 # =========================================================
 
 def main():
+    project_root = Path(__file__).resolve().parent.parent
 
     print("=" * 70)
     print("STTORM FULL TEST-SET TEMPORAL EVALUATION")
@@ -217,7 +234,7 @@ def main():
             ]
 
             prediction_result = run_python_script(
-                "predict_change.py",
+                "inference/predict_change.py",
                 prediction_arguments
             )
 
@@ -298,7 +315,7 @@ def main():
             ]
 
             evaluation_result = run_python_script(
-                "evaluate_change.py",
+                str(project_root / "evaluation" / "evaluate_change.py"),
                 evaluation_arguments
             )
 
