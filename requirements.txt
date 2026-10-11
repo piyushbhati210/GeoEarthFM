@@ -6,3 +6,4 @@ tqdm>=4.66
 scikit-learn>=1.4
 matplotlib>=3.8
 streamlit>=1.35
+pandas>=2.2

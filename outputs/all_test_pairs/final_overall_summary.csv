@@ -1,0 +1,6 @@
+Metric,Value
+Accuracy,0.9540225
+Precision,0.5641575000000001
+Recall,0.33492
+Dice,0.34461
+IoU,0.2582325
